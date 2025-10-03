@@ -46,8 +46,10 @@ public class Main {
                     giveOptionToCheckOut(scan);
                     break;
                 case 2:
-                    showCheckedOutBooks();
-                    giveOptionToCheckIn(scan);
+                    boolean isCheckedOut=showCheckedOutBooks();
+                    if(isCheckedOut){
+                        giveOptionToCheckIn(scan);
+                    }
                     break;
                 case 3:
                     isRunning = false;
@@ -68,17 +70,17 @@ public class Main {
     }
 
     public static void giveOptionToCheckOut(Scanner scan) {
-        System.out.println("Choose what you would like to do next: ");
+        System.out.println("Chose what you would like to do next: ");
         System.out.println("1. To checkout a book \t 2. Return back to home");
 
         int choice = scan.nextInt();
-        scan.nextLine(); // <-- consume newline after menu choice
+        scan.nextLine();
 
         switch (choice) {
             case 1:
                 System.out.println("Please enter the id of the book to checkout: ");
                 int bookIdToCheckOut = scan.nextInt();
-                scan.nextLine(); // <-- consume newline after ID
+                scan.nextLine();
 
                 boolean found = false;
                 String userName;
@@ -89,7 +91,7 @@ public class Main {
                         userName = scan.nextLine().trim();
                         bookArray[i].checkOut(userName);
                         System.out.println(userName + " you have checked out " + bookArray[i].getTitle());
-                        break; // IDs are unique; stop searching
+                        break;
                     }
                 }
                 if (!found) {
@@ -97,19 +99,24 @@ public class Main {
                 }
                 break;
             case 2:
-                // return to home screen
                 break;
             default:
                 System.out.println("Invalid input");
         }
     }
 
-    public static void showCheckedOutBooks() {
+    public static boolean showCheckedOutBooks() {
+        boolean found=false;
         for (int i = 0; i < numOfBooks; i++) {
             if (bookArray[i].isCheckedOut()) {
                 System.out.println(bookArray[i] + " is checked out by " + bookArray[i].getCheckedOutTo());
+                found=true;
             }
         }
+        if(!found){
+            System.out.println("There aren't any books checked out currently");
+        }
+        return found;
     }
 
     public static void giveOptionToCheckIn(Scanner scan) throws InterruptedException {

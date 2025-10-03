@@ -19,40 +19,16 @@ public class Book {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getIsbn() {
-        return isbn;
-    }
-
-    public void setIsbn(String isbn) {
-        this.isbn = isbn;
-    }
-
     public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
+        return "'"+title+"'";
     }
 
     public boolean isCheckedOut() {
         return isCheckedOut;
     }
 
-    public void setCheckedOut(boolean checkedOut) {
-        isCheckedOut = checkedOut;
-    }
-
     public String getCheckedOutTo() {
         return checkedOutTo;
-    }
-
-    public void setCheckedOutTo(String checkedOutTo) {
-        this.checkedOutTo = checkedOutTo;
     }
 
     public void checkOut(String checkedOutTo){
@@ -64,12 +40,13 @@ public class Book {
         checkedOutTo="";
     }
 
+
     @Override
     public String toString() {
-        return "Book{" +
+        return "Book: " +
                 "id=" + id +
                 ", isbn='" + isbn + '\'' +
-                ", title='" + title + '}';
+                ", title='" + title+"'";
     }
 
 }
