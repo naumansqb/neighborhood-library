@@ -34,10 +34,10 @@ public class Main {
         boolean isRunning = true;
         int choice;
         while (isRunning) {
-            System.out.println("***Store Home Screen***");
-            System.out.println("1. Show Available Books");
-            System.out.println("2. Show Checked Out Books");
-            System.out.println("3. Exit the program");
+            System.out.println("📖Store Home Screen");
+            System.out.println("1. Show Available Books 📚");
+            System.out.println("2. Show Checked Out Books 📚");
+            System.out.println("3. Exit the program👋");
             choice = scan.nextInt();
             scan.nextLine();
             switch (choice) {
@@ -62,6 +62,7 @@ public class Main {
     }
 
     public static void showAvailableBooks() {
+        System.out.println("Here are all the available books.\n");
         for (int i = 0; i < numOfBooks; i++) {
             if (!bookArray[i].isCheckedOut()) {
                 System.out.println(bookArray[i]);
