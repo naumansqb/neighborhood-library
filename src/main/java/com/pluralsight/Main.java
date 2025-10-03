@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Main {
     private static Book [] bookArray= new Book[100];
-    private int numOfBooks=20;
+    private static int numOfBooks=20;
     public static void main(String[] args) {
         //creation of the Book instances
         bookArray[0]  = new Book(1,  "The Great Gatsby",          "9780743273565");
@@ -31,7 +31,7 @@ public class Main {
         Scanner scan = new Scanner(System.in);
 
         boolean isRunning=true;
-        int choice=0;
+        int choice;
         while(isRunning){
             System.out.println("***Store Home Screen***");
             System.out.println("1. Show Available Books");
@@ -40,16 +40,54 @@ public class Main {
             choice= scan.nextInt();
             switch(choice){
                 case 1:
+                    showAvailableBooks(scan);
                     break;
                 case 2:
                     break;
                 case 3:
                     isRunning=false;
                 default:
-                    System.out.println("Invalid Input. Please try again!");;
+                    System.out.println("Invalid Input. Please try again!");
             }
         }
 
     }
+    public static void showAvailableBooks(Scanner scan){
+        for(int i=0;i<numOfBooks;i++){
+            if(!bookArray[i].isCheckedOut()){
+                System.out.println(bookArray[i]);
+            }
+        }
+        System.out.println("Chose what you would like to do next: ");
+        System.out.println("1. To checkout a book \t 2. Return back to home");
+        int choice=scan.nextInt();
+        switch(choice){
+            case 1:
+                System.out.println("Please enter the id of the book to checkout: ");
+                int bookIdToCheckOut=scan.nextInt();
+                scan.nextLine();
+                boolean found=false;
+                String userName;
+                for(int i=0;i<numOfBooks;i++){
+                    if(bookArray[i].getId() == bookIdToCheckOut){
+                        found=true;
+                        System.out.println("Please enter your name: ");
+                        userName= scan.nextLine();
+                        bookArray[i].checkOut(userName);
+                        System.out.println(userName +" you have checked out "+ bookArray[i].getTitle());
+                    }
+                }
+                if(!found) {
+                    System.out.println("No book with that ID. Sorry, try again");
+                }
+                break;
+            case 2:
+                break;
+            default:
+                System.out.println("Invalid input");
+        }
+
+    }
+
 
 }
